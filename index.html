@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextTools</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>TextTools</h1>
+            <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+        </div>
+        <p>No Login. Just Tools.</p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Case Converter</h2>
+                <button class="text-link" onclick="clearField('caseInput')">Clear</button>
+            </div>
+            <textarea id="caseInput" placeholder="Type or paste text to convert here..."></textarea>
+            <div class="button-row">
+                <button onclick="transformCase('upper')">UPPERCASE</button>
+                <button onclick="transformCase('lower')">lowercase</button>
+                <button onclick="transformCase('sentence')">Sentence case</button>
+                <button onclick="transformCase('title')">Title Case</button>
+                <button class="primary-btn" onclick="copyToClipboard('caseInput', this)">Copy Converted Text</button>
+            </div>
+        </section>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Clean Text</h2>
+                <button class="text-link" onclick="clearField('cleanInput')">Clear</button>
+            </div>
+            <textarea id="cleanInput" placeholder="Paste messy text to clean..."></textarea>
+            <div class="button-row">
+                <button class="primary-btn" onclick="copyToClipboard('cleanInput', this)">Copy Clean Text</button>
+            </div>
+        </section>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>List-to-Comma</h2>
+                <button class="text-link" onclick="clearField('listInput')">Clear</button>
+            </div>
+            <textarea id="listInput" placeholder="Item 1&#10;Item 2&#10;Item 3"></textarea>
+            <div class="button-row">
+                <button onclick="convertList()">Convert to Comma List</button>
+                <button class="primary-btn" onclick="copyToClipboard('listInput', this)">Copy Result</button>
+            </div>
+        </section>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>URL Purifier</h2>
+                <button class="text-link" onclick="clearField('urlInput')">Clear</button>
+            </div>
+            <input type="text" id="urlInput" placeholder="Paste long URL to clean...">
+            <div class="button-row">
+                <button onclick="cleanURL()">Clean Link</button>
+                <button class="primary-btn" onclick="copyToClipboard('urlInput', this)">Copy Link</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
