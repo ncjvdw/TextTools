@@ -7,13 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="feedback-box" class="feedback-container">
+    <button id="close-feedback" class="close-btn">&times;</button>
+    <p><strong>This site is in progress</strong> - more features coming soon!</p>
+    <hr>
+    <form id="feedback-form">
+        <p>Would you recommend this to others?</p>
+        <label><input type="radio" name="recommend" value="yes" required> Yes</label>
+        <label><input type="radio" name="recommend" value="no"> No</label>
 
+        <p>Would you buy me a coffee to keep this ad-free?</p>
+        <label><input type="radio" name="coffee" value="yes" required> Yes</label>
+        <label><input type="radio" name="coffee" value="no"> No</label>
+        
+        <button type="submit" id="submit-feedback">Send Feedback</button>
+    </form>
+    <p id="thank-you-msg" style="display:none;">Thanks for the support!</p>
+    </div>
     <header>
         <div class="header-container">
             <h1>TextTools</h1>
             <button id="themeToggle" onclick="toggleTheme()">🌙</button>
         </div>
-        <p>No Login. Just Tools.</p>
+        <p>All the tools you need for fixing common text problems.</p>
     </header>
 
     <main>

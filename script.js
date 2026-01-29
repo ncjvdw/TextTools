@@ -1,3 +1,6 @@
+const feedbackBox = document.getElementById('feedback-box');
+const feedbackForm = document.getElementById('feedback-form');
+
 // Case Converter
 function transformCase(type) {
     const el = document.getElementById('caseInput');
@@ -74,3 +77,25 @@ window.onload = () => {
         document.getElementById('themeToggle').innerText = "☀️";
     }
 };
+
+//feedback
+if (localStorage.getItem('feedbackSubmitted')) {
+    feedbackBox.style.display = 'none';
+}
+
+feedbackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz299Jx-uyI7IGlGpKwTj84nVRHIz8HuAKz8MURfh4u_zlCIjpUVHctIDlLL3uZzunLhg/exec';
+    const formData = new FormData(feedbackForm);
+
+    fetch(scriptURL, { method: 'POST', body: formData})
+        .then(response => {
+            feedbackForm.style.display = 'none';
+            document.getElementById('thank-you-msg').style.display = 'block';
+            localStorage.setItem('feedbackSubmitted', 'true');
+        })
+        .catch(error => console.error('Error!', error.message));
+});
+
+document.getElementById('close-feedback').onclick = () => feedbackBox.style.display = 'none';
