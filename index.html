@@ -8,84 +8,175 @@
 </head>
 <body>
     <div id="feedback-box" class="feedback-container">
-    <button id="close-feedback" class="close-btn">&times;</button>
-    <p><strong>This site is in progress</strong> - more features coming soon!</p>
-    <hr>
-    <form id="feedback-form">
-        <p>Would you recommend this to others?</p>
-        <label><input type="radio" name="recommend" value="yes" required> Yes</label>
-        <label><input type="radio" name="recommend" value="no"> No</label>
-
-        <p>Would you buy me a coffee to keep this ad-free?</p>
-        <label><input type="radio" name="coffee" value="yes" required> Yes</label>
-        <label><input type="radio" name="coffee" value="no"> No</label>
-        
-        <button type="submit" id="submit-feedback">Send Feedback</button>
-    </form>
-    <p id="thank-you-msg" style="display:none;">Thanks for the support!</p>
+        <button id="close-feedback" class="close-btn">&times;</button>
+        <p><strong>This site is still in progress</strong> - more features coming soon!</p>
+        <hr>
+        <form id="feedback-form">
+            <p>Would you recommend this to others?</p>
+            <label><input type="radio" name="recommend" value="yes" required> Yes</label>
+            <label><input type="radio" name="recommend" value="no"> No</label>
+            <p>Would you buy me a coffee to keep this ad-free?</p>
+            <label><input type="radio" name="coffee" value="yes" required> Yes</label>
+            <label><input type="radio" name="coffee" value="no"> No</label>
+            <button type="submit" id="submit-feedback">Send Feedback</button>
+        </form>
+        <p id="thank-you-msg" style="display:none;">Thanks for the support!</p>
     </div>
+
     <header>
         <div class="header-container">
             <h1>TextTools</h1>
             <button id="themeToggle" onclick="toggleTheme()">🌙</button>
         </div>
-        <p>All the tools you need for fixing common text problems.</p>
+        <p>All the tools you need for common text problems!</p>
     </header>
 
     <main>
+        <h2 class="section-header">Text Essentials</h2>
+        
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Text Analysis</h2>
+                <button class="text-link" onclick="clearField('statsInput')">Clear</button>
+            </div>
+            <textarea id="statsInput" oninput="analyzeText(); resetHistory('statsInput')" placeholder="Paste text for word/char count..."></textarea>
+            <div id="statsResult" class="stats-grid">Words: 0 | Chars: 0 | Reading: 0m</div>
+        </section>
+
         <section class="tool-card">
             <div class="card-header">
                 <h2>Case Converter</h2>
                 <button class="text-link" onclick="clearField('caseInput')">Clear</button>
             </div>
-            <textarea id="caseInput" placeholder="Type or paste text to convert here..."></textarea>
+            <textarea id="caseInput" oninput="resetHistory('caseInput')" placeholder="Paste text to change case..."></textarea>
             <div class="button-row">
                 <button onclick="transformCase('upper')">UPPERCASE</button>
                 <button onclick="transformCase('lower')">lowercase</button>
-                <button onclick="transformCase('sentence')">Sentence case</button>
+                <button onclick="transformCase('sentence')">Sentence Case</button>
                 <button onclick="transformCase('title')">Title Case</button>
-                <button class="primary-btn" onclick="copyToClipboard('caseInput', this)">Copy Converted Text</button>
+                <button onclick="transformCase('alternating')">aLtErNaTiNg</button>
+                <button onclick="transformCase('vowels')">VoWeLs</button>
+                <button onclick="transformCase('consonants')">cONSoNaNTS</button>
+                <button class="primary-btn" onclick="copyToClipboard('caseInput', this)">Copy Text</button>
             </div>
         </section>
 
         <section class="tool-card">
             <div class="card-header">
-                <h2>Clean Text</h2>
+                <h2>Styles</h2>
+                <button class="text-link" onclick="clearStyles()">Reset</button>
+            </div>
+            <textarea id="styleInput" placeholder="Type here to apply stackable styles..."></textarea>
+            <div class="button-row">
+                <button id="btn-bold" onclick="toggleStyleAttribute('bold')">Bold</button>
+                <button id="btn-italic" onclick="toggleStyleAttribute('italic')">Italic</button>
+                <button id="btn-strike" onclick="toggleStyleAttribute('strike')">Strike</button>
+                <button class="primary-btn" onclick="copyToClipboard('styleInput', this)">Copy Style</button>
+            </div>
+        </section>
+
+        <h2 class="section-header">Developer Tools</h2>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Variable Case</h2>
+                <button class="text-link" onclick="clearField('progInput')">Clear</button>
+            </div>
+            <textarea id="progInput" oninput="resetHistory('progInput')" placeholder="Convert string to variable formats..."></textarea>
+            <div class="button-row">
+                <button onclick="progCase('camel')">to camelCase</button>
+                <button onclick="progCase('pascal')">to PascalCase</button>
+                <button onclick="progCase('snake')">to snake_case</button>
+                <button onclick="progCase('kebab')">to kebab-case</button>
+                <button onclick="progCase('constant')">to CONSTANT_CASE</button>
+                <button class="primary-btn" onclick="copyToClipboard('progInput', this)">Copy Code</button>
+            </div>
+        </section>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Encoders & Decoders</h2>
                 <button class="text-link" onclick="clearField('cleanInput')">Clear</button>
             </div>
-            <textarea id="cleanInput" placeholder="Paste messy text to clean..."></textarea>
+            <textarea id="cleanInput" oninput="resetHistory('cleanInput')" placeholder="HTML, Base64, or messy text..."></textarea>
             <div class="button-row">
-                <button class="primary-btn" onclick="copyToClipboard('cleanInput', this)">Copy Clean Text</button>
+                <button onclick="cleanText('toBase64')">Text to Base64</button>
+                <button onclick="cleanText('fromBase64')">Base64 to Text</button>
+                <button onclick="cleanText('strip')">Strip HTML Tags</button>
+                <button onclick="cleanText('whitespace')">Fix Whitespace</button>
+                <button class="primary-btn" onclick="copyToClipboard('cleanInput', this)">Copy Result</button>
+            </div>
+        </section>
+
+        <h2 class="section-header">Miscellaneous</h2>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Fonts</h2>
+                <button class="text-link" onclick="clearField('fontInput')">Clear</button>
+            </div>
+            <textarea id="fontInput" oninput="resetHistory('fontInput')" placeholder="Fancy decorative fonts..."></textarea>
+            <div class="button-row">
+                <button onclick="applyFont('original')">Original</button>
+                <button onclick="applyFont('bubble')">Bubble</button>
+                <button onclick="applyFont('fancy')">Fancy</button>
+                <button onclick="applyFont('small')">Small Caps</button>
+                <button onclick="applyFont('cursive')">Cursive</button>
+                <button onclick="applyFont('glitch')">Glitch</button>
+                <button class="primary-btn" onclick="copyToClipboard('fontInput', this)">Copy Font</button>
             </div>
         </section>
 
         <section class="tool-card">
             <div class="card-header">
-                <h2>List-to-Comma</h2>
+                <h2>List & Sorting</h2>
                 <button class="text-link" onclick="clearField('listInput')">Clear</button>
             </div>
-            <textarea id="listInput" placeholder="Item 1&#10;Item 2&#10;Item 3"></textarea>
+            <textarea id="listInput" oninput="resetHistory('listInput')" placeholder="Item 1, Item 2..."></textarea>
             <div class="button-row">
-                <button onclick="convertList()">Convert to Comma List</button>
-                <button class="primary-btn" onclick="copyToClipboard('listInput', this)">Copy Result</button>
+                <button onclick="convertList('toComma')">Lines to Commas</button>
+                <button onclick="convertList('toList')">Commas to Lines</button>
+                <button onclick="convertList('toTab')">Lines to Tabs</button>
+                <button onclick="convertList('tabsToList')">Tabs to Lines</button>
+                <button id="sortBtn" onclick="toggleSort(this)">Sort: Original</button>
+                <button class="primary-btn" onclick="copyToClipboard('listInput', this)">Copy List</button>
             </div>
         </section>
 
         <section class="tool-card">
             <div class="card-header">
-                <h2>URL Purifier</h2>
+                <h2>URL Tools</h2>
                 <button class="text-link" onclick="clearField('urlInput')">Clear</button>
             </div>
-            <input type="text" id="urlInput" placeholder="Paste long URL to clean...">
+            <input type="text" id="urlInput" oninput="resetHistory('urlInput')" placeholder="Paste URL here...">
             <div class="button-row">
-                <button onclick="cleanURL()">Clean Link</button>
+                <button onclick="urlTool('clean')">Remove Tracking</button>
+                <button onclick="urlTool('encode')">Encode URL</button>
+                <button onclick="urlTool('decode')">Decode URL</button>
                 <button class="primary-btn" onclick="copyToClipboard('urlInput', this)">Copy Link</button>
+            </div>
+        </section>
+
+        <section class="tool-card">
+            <div class="card-header">
+                <h2>Data Converters</h2>
+                <button class="text-link" onclick="clearField('convInput')">Clear</button>
+            </div>
+            <textarea id="convInput" oninput="resetHistory('convInput')" placeholder="Hex, Morse, Binary data..."></textarea>
+            <div class="button-row">
+                <button onclick="miscTool('toHex')">Text to Hex</button>
+                <button onclick="miscTool('fromHex')">Hex to Text</button>
+                <button onclick="miscTool('toBin')">Text to Binary</button>
+                <button onclick="miscTool('fromBin')">Binary to Text</button>
+                <button onclick="miscTool('toMorse')">Text to Morse</button>
+                <button onclick="miscTool('fromMorse')">Morse to Text</button>
+                <button class="primary-btn" onclick="copyToClipboard('convInput', this)">Copy Result</button>
             </div>
         </section>
     </main>
 
     <footer>
-        <p></p>
+        <p>© 2026 TextTools</p>
     </footer>
 
     <script src="script.js"></script>
