@@ -77,9 +77,9 @@ const fontMaps = {
     fancy:  "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩0123456789",
     small:  "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
     cursive:"𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜𝐵𝒞𝒟𝐸𝓕𝒢𝐻𝐼𝒥𝒦𝐿𝑀𝒩𝒪𝒫𝒬𝑅𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵0123456789",
-    bold:   "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵ｉｊｋ𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄ｘ𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭0123456789",
-    italic: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0123456789",
-    bolditalic: "𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕0123456789"
+    bold:   "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵ｉｊｋ𝗹𝗺ｎ𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄ｘｙ𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭0123456789",
+    italic: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪ij𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0123456789",
+    bolditalic: "𝙖boldsymbol𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕0123456789"
 };
 
 const glitchChars = [
@@ -97,19 +97,15 @@ const glitchChars = [
 
 function normalizeText(text) {
     let norm = text.replace(/\u0336/g, '').replace(/[\u0300-\u036f]/g, ''); 
-    
     const normalChars = Array.from(fontMaps.normal);
-
     Object.keys(fontMaps).forEach(style => {
         if (style === 'normal') return;
         const styledChars = Array.from(fontMaps[style]);
-        
         norm = Array.from(norm).map(char => {
             const index = styledChars.indexOf(char);
             return index !== -1 ? normalChars[index] : char;
         }).join('');
     });
-    
     return norm;
 }
 
@@ -125,14 +121,10 @@ function transformText(text, type) {
 function toggleStyleAttribute(attr) {
     const el = document.getElementById('styleInput');
     if (!el.value) return;
-
     activeStyles[attr] = !activeStyles[attr];
-    
     const btn = document.getElementById(`btn-${attr}`);
     btn.classList.toggle('active-style', activeStyles[attr]);
-
     let text = normalizeText(el.value);
-
     if (activeStyles.bold && activeStyles.italic) {
         text = transformText(text, 'bolditalic');
     } else if (activeStyles.bold) {
@@ -140,11 +132,9 @@ function toggleStyleAttribute(attr) {
     } else if (activeStyles.italic) {
         text = transformText(text, 'italic');
     }
-    
     if (activeStyles.strike) {
         text = Array.from(text).map(c => c + '\u0336').join('');
     }
-
     el.value = text;
 }
 
@@ -158,19 +148,14 @@ function clearStyles() {
 function applyFont(type) {
     const el = document.getElementById('fontInput');
     if (!el.value) return;
-
     const cleanText = normalizeText(el.value);
-
     if (type === 'original') {
         el.value = cleanText;
         return;
     }
-
     if (type === 'glitch') {
         el.value = Array.from(cleanText).map(char => {
             if (char === ' ') return char; // Don't glitch spaces
-            
-            // Add 10 random glitch marks to each letter
             let glitched = char;
             for (let i = 0; i < 10; i++) {
                 glitched += glitchChars[Math.floor(Math.random() * glitchChars.length)];
@@ -179,10 +164,8 @@ function applyFont(type) {
         }).join('');
         return;
     }
-
     const source = Array.from(fontMaps.normal);
     const target = Array.from(fontMaps[type]);
-    
     el.value = Array.from(cleanText).map(char => {
         const index = source.indexOf(char);
         return index !== -1 ? target[index] : char;
@@ -224,7 +207,6 @@ function toggleSort(btn) {
     sortState.index = (sortState.index + 1) % 3;
     let sep = val.includes('\n') ? '\n' : (val.includes(',') ? ',' : ' ');
     let items = val.split(sep).map(i => i.trim()).filter(i => i);
-
     if (sortState.index === 1) {
         items.sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
         el.value = items.join(sep === '\n' ? '\n' : (sep === ',' ? ', ' : ' '));
@@ -290,10 +272,16 @@ function toggleTheme() {
     document.getElementById('themeToggle').innerText = document.body.classList.contains('dark-theme') ? "☀️" : "🌙";
 }
 
+/* --- FEEDBACK and INIT --- */
 window.onload = () => {
+
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark-theme');
         document.getElementById('themeToggle').innerText = "☀️";
+    }
+
+    if (localStorage.getItem('feedbackSubmitted') === 'true') {
+        document.getElementById('feedback-box').style.display = 'none';
     }
 };
 
@@ -301,9 +289,27 @@ const feedbackForm = document.getElementById('feedback-form');
 if (feedbackForm) {
     feedbackForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const formData = new FormData(feedbackForm);
+
+        fetch('https://script.google.com/macros/s/AKfycbz299Jx-uyI7IGlGpKwTj84nVRHIz8HuAKz8MURfh4u_zlCIjpUVHctIDlLL3uZzunLhg/exec', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message));
+
         feedbackForm.style.display = 'none';
         document.getElementById('thank-you-msg').style.display = 'block';
-        setTimeout(() => document.getElementById('feedback-box').style.display = 'none', 2000);
+        
+        localStorage.setItem('feedbackSubmitted', 'true');
+        
+        setTimeout(() => {
+            document.getElementById('feedback-box').style.display = 'none';
+        }, 2000);
     });
 }
-document.getElementById('close-feedback').onclick = () => document.getElementById('feedback-box').style.display = 'none';
+
+document.getElementById('close-feedback').onclick = () => {
+    document.getElementById('feedback-box').style.display = 'none';
+};
